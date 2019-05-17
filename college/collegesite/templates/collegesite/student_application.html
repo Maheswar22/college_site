@@ -1,0 +1,38 @@
+{% extends "collegesite/base.html" %}
+{% block content %}
+<div class="form-group">
+  <div class = "row">
+<div class="form-style">
+    <div class="container-center_div">
+      <div class="info-form">
+<form class="" action="." method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  Name: <input type="text" name="name"><br><br>
+  Gender: <select name="gender">
+    <option value="M">Male</option>
+    <option value="F">Female</option>
+    <option value="O">Others</option>
+  </select> <br>
+  Email : <input type="email" name="email"><br><br>
+  Date of Birth : <input type="date" name="dob"><br><br>
+  Address : <input type="text" name="address"><br><br>
+  Nationality : <input type="text" name="nationality"><br><br>
+  SSC Memo: <input type="file" name="sscmemo"><br><br>
+  Intermediate Memo: <input type="file" name="intermemo"><br><br>
+  Department :<select name="department">
+    <option value="CE">Civil Engineering</option>
+    <option value="CSE">Computer Science Engineering</option>
+    <option value="ECE">Electronics Communtication Engineering</option>
+    <option value="EEE">Electrical Electronics Engineering</option>
+    <option value="ME">Mechanical Engineering</option>
+  </select><br>
+
+
+  <input class="btn btn-default btn-info" type="submit" value="submit" />
+</form>
+</div>
+</div>
+  </div>
+</div>
+  </div>
+{% endblock %}
