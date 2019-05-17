@@ -1,6 +1,10 @@
 {% extends "collegesite/base.html" %}
 {% block content %}
 <div class="form-group">
+  <div class = "row">
+<div class="form-style">
+    <div class="container-center_div">
+      <div class="info-form">
 <form action="{% url 'collegesite:staff_registration' %}" method="post" enctype="multipart/form-data">
    {% csrf_token %}
   {% for field in form1 %}
@@ -19,4 +23,8 @@
   <button class = "btn btn-default" type="submit">submit</button>
 </form>
 {% endblock %}
+</div>
+    </div>
+</div>
+  </div>
 </div>

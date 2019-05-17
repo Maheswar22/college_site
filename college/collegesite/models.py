@@ -85,6 +85,6 @@ class Staff(TimeStampedModel):
         return "{} {}".format(self.name, self.user.username)
     def delete(self,*args, **kwargs):
         self.profilepic.delete()
-        super(Student, self).delete()
+        super(Student, self).delete(*args, **kwargs)
 
 
