@@ -1,0 +1,26 @@
+{% extends "collegesite/base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% for student in students %}
+<table style ="width:100%">
+<tr>
+    <td>Name</td>
+    <td>Email</td>
+    <td>Department</td>
+<tr>
+ <tr>
+    <td>{{student.name}}</td>
+    <td>{{student.name.email}}</td>
+    <td>{{student.name.department}}</td>
+  <tr>
+    </table>
+{% endfor %}
+</body>
+{% endblock %}
+</html>

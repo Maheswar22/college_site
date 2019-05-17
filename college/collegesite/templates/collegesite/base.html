@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Collegesite</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
+    <div class="container-fluid">
+        <div class="nav-header">
+            <a class="navbar-brand" href="{% url 'collegesite:index' %}">college</a>
+                <ul class="nav navbar-nav navbar-right">
+
+      <li><a  href="{% url 'collegesite:user_login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a ></li>
+    </ul>
+        </div>
+  </div>
+</nav>
+
+<div list>
+    <div class="jumbotron">
+    <div class="container-fluid">
+
+{% block content %}
+<ul>
+
+    <a href="{% url 'collegesite:staff_registration' %}">Staff Registration</a><br>
+    <a href="{% url 'collegesite:student_application' %}">Student Application</a><br>
+    <a href="{% url 'collegesite:student_registartion' %}">Student Registartion</a><br>
+    <a href="{% url 'collegesite:student_list' %}">Sortlisted Students applications</a><br>
+</ul>
+</div>
+        </div>
+    </div>
+{% endblock %}
+</body>
+</html>
+
+
+
+
+
+
+
+
+
