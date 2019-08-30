@@ -3,18 +3,28 @@
 <div class="form-group">
 <form action="{% url 'collegesite:staff_registration' %}" method="post" enctype="multipart/form-data">
    {% csrf_token %}
-  {% for field in form1 %}
-  <div class="fieldWrapper">
-    {{ field.label_tag }} {{ field }}
-  </div>
-  {% endfor %}
-  {% csrf_token %}
-  {% for field in form2 %}
-  <div class="fieldWrapper">
-    {{ field.label_tag }} {{ field }} <br>
-
-  </div>
-  {% endfor %}
+   <div class="col-md-4 col-md-offset-4">
+     {% if messages %}
+   {% for message in messages %}
+    {{ message }}
+   {% endfor %}
+   {% endif %}
+     <table><br>
+       {% for field in form1 %}
+       <tr>
+         <td>{{ field.label_tag }}</td>
+         <td>{{ field }}</td>
+         <td><p></p><br></td>
+       </tr>
+       {% endfor %}<br>
+       {% for field in form2 %}
+       <tr>
+         <td>{{ field.label_tag }}</td>
+         <td>{{ field }}</td>
+         <td><p></p><br></td>
+       </tr>
+       {% endfor %}<br>
+     </table><br>
 
   <button class = "btn btn-default" type="submit">submit</button>
 </form>

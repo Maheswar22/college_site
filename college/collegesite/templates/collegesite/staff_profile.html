@@ -2,22 +2,37 @@
 {% block content %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <title>Title</title>
 </head>
+
 <body>
-<p>Name:{{s.name.name}}</p><br>
-<img src="{{s.profilepic.url}}"><br><br>
-<p>Email:{{s.email}}</p><br>
-<p>Age:{{s.age}}</p><br>
-<p>Gender:{{s.gender}}</p><br>
-<p>Department:{{s.department}}</p>
-
-
-<a href="{% url 'collegesite:staff' %}">Staff</a>
-<a href="{% url 'collegesite:students' %}">Students</a>
-<a href = "{% url 'collegesite:user_logout' %}">Logout</a>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="row">
+          <div class="col-sm-6 col-md-4">
+            <p></p>
+            <img src="{{s.profilepic.url}}" alt="" class="img-rounded img-responsive" />
+          </div>
+          <div class="col-sm-6 col-md-8">
+            <h4><b>{{s.name}}</b></h4>
+            </i></cite></small>
+            <p>
+              <i class="glyphicon glyphicon-envelope"></i>{{s.email}}
+              <br />
+              <i></i>Department-{{s.department}}<br />
+              <i></i>Age-{{s.age}}</p>
+            <p><a href="{% url 'collegesite:staff' %}">staff</a></p>
+            <p><a href="{% url 'collegesite:students' %}">students</a></p>
+          </div>
+        </div>
+    </div>
+  </div>
+  </div>
 </body>
 {% endblock %}
+
 </html>

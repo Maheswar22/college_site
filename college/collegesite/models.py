@@ -3,6 +3,9 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.dispatch import receiver
+from django.db.models.signals import pre_save, post_delete
+import os
 
 # Create your models here.
 class TimeStampedModel(models.Model):
@@ -41,10 +44,14 @@ class Studentapplication(TimeStampedModel):
     def __str__(self):
         return '{} {}'.format(self.name, self.is_verified)
 
-    def delete(self):
-        self.sccmemo.delete()
-        self.intermemo.delete()
-        super(Studentapplication, self).delete()
+@receiver(post_delete, sender=Studentapplication)
+def auto_delete_file(sender, instance, **kwargs):
+    """
+    Deletes th efile from the filesystem
+    """
+    if instance.sccmemo and instance.intermemo:
+        if os.path.isfile(instance.sccmemo) and os.path.isfile(instance.intermemo):
+            os.remove(instance.sscmemo) and os.remove(instance.intermemo)
 
 
 class Student(TimeStampedModel):
@@ -57,9 +64,32 @@ class Student(TimeStampedModel):
 
     def __str__(self):
         return "{} {}".format(self.name.name, self.user.username)
-    def delete(self, ):
-        self.profilepic.delete()
-        super(Student, self).delete()
+@receiver(post_delete, sender=Student)
+def auto_delete_file(sender, instance, **kwargs):
+    """
+    Deletes the files from the filesystem
+    """
+    if instance.profilepic:
+        if os.path.isfile(instance.profilepic.path):
+            os.remove(instance.profilepic.path)
+
+@receiver(pre_save, sender=Student)
+def auto_delete_file_on_change(sender, instance, **kwargs):
+    """
+    Deletes the old file from filesystem after updating new
+    """
+    if not instance.pk:
+        return False
+    try:
+        old_file = Students.objects.get(pk=instance.pk).profilepic
+    except Student.DoesNotExist:
+        return False
+    new_file = instance.profilepic
+    if not old_file == new_file:
+        if os.path.isfile(old_file.path):
+            os.remove(old_file.path)
+
+
 class Staff(TimeStampedModel):
     GENDER_CHOICES = (
         ('M', 'Male'),
@@ -83,8 +113,29 @@ class Staff(TimeStampedModel):
 
     def __str__(self):
         return "{} {}".format(self.name, self.user.username)
-    def delete(self,*args, **kwargs):
-        self.profilepic.delete()
-        super(Student, self).delete()
+
+@receiver(post_delete, sender=Staff)
+def auto_delete_file(sender, instance, **kwargs):
+    """
+    Deletes files filesystem
+    """
+    if instance.profilepic:
+        if os.path.isfile(instance.profilepic.path):
+            os.remove(instance.profilepic.path)
 
 
+@receiver(pre_save, sender=Staff)
+def auto_delete_file_on_change(sender, instance, **kwagrs):
+    """
+    Deletes th old file from filesystem
+    """
+    if not instance.pk:
+        return False
+    try:
+        old_file = Staff.objects.get(pk=instance.pk).profilepic
+    except Staff.DoesNotExist:
+        return False
+    new_file = instance.profilepic
+    if not old_file == new_file:
+        if os.path.isfile(old_file.path):
+            os.remove(old_file.path)

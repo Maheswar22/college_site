@@ -1,51 +1,68 @@
 <!DOCTYPE html>
 {% load staticfiles %}
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Collegesite</title>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <meta charset="UTF-8">
+  <title>Collegesite</title>
+  <!-- Latest compiled and minified CSS -->
 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
+
 <body>
-<nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
+  <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
     <div class="container-fluid">
-        <div class="nav-header">
-            <a class="navbar-brand" href="{% url 'collegesite:index' %}">college</a>
-                <ul class="nav navbar-nav navbar-right">
-
-      <li><a  href="{% url 'collegesite:user_login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a ></li>
-    </ul>
-        </div>
-  </div>
-</nav>
-
-<div list>
-    <div class="jumbotron">
-    <div class="container-fluid">
-
-{% block content %}
-<ul>
-
-    <a href="{% url 'collegesite:staff_registration' %}">Staff Registration</a><br>
-    <a href="{% url 'collegesite:student_application' %}">Student Application</a><br>
-    <a href="{% url 'collegesite:student_registartion' %}">Student Registartion</a><br>
-    <a href="{% url 'collegesite:student_list' %}">Sortlisted Students applications</a><br>
-</ul>
-</div>
-        </div>
+      <div class="nav-header">
+        <a class="navbar-brand" href="{% url 'collegesite:index' %}">college</a>
+        <ul class="nav navbar-nav navbar-right">
+          {% if user.is_authenticated %}
+          {% if user.is_staff %}
+          <a href="{% url 'collegesite:staff_profile' %}">
+              <span class="glyphicon glyphicon-user"></span>
+          {% else %}
+          <a href="{% url 'collegesite:student_profile' %}">
+              <span class="glyphicon glyphicon-user"></span>
+              {% endif %}
+          <a href="{% url 'collegesite:user_logout' %}">Logout</a>
+          {% else %}
+          <li><a href="{% url 'collegesite:user_login' %}">
+            <span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          {% endif %}
+        </ul>
+      </div>
     </div>
-{% endblock %}
+  </nav>
+
+  <div list>
+    <div class="jumbotron">
+      <div class="container-fluid">
+
+        {% block content %}
+        <div class="col-md-4 col-md-offset-4">
+          {% if messages %}
+          {% for message in messages %}
+          {% if message.tags %}{% endif %}
+          {{ message }}
+          {% endfor %}
+          {% endif %}
+          <p></p><br>
+          <ul>
+            <a href="{% url 'collegesite:staff_registration' %}">Staff Registration</a><br><br>
+            <a href="{% url 'collegesite:student_application' %}">Student Application</a><br><br>
+            <a href="{% url 'collegesite:student_registartion' %}">Student Registartion</a><br><br>
+            <a href="{% url 'collegesite:student_list' %}">Sortlisted Students applications</a><br><br>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
 </body>
+
 </html>
-
-
-
-
-
-
-
-
-

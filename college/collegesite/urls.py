@@ -16,5 +16,4 @@ urlpatterns = [
     url(r'students/$', views.students, name="students"),
     url(r'staff_department/$', views.staff_department, name='staff_department'),
     url(r'staff', views.staff, name='staff'),
-    #url(r'^student_login/$', views.student_login, name='student_login'),
 ]
