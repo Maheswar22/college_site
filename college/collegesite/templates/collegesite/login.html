@@ -9,9 +9,32 @@
           <div class="col-md-4 col-md-offset-4">
             {% if messages %}
             {% for message in messages %}
-            {{ message }}
+            {% if message.tags == 'success'%}
+            <div class="alert alert-success">
+              <strong>{{message}}</strong>
+            </div>
+            {% elif message.tags == "info"%}
+            <div class='alert alert-info'>
+              <strong>{{message}}</strong>
+            </div>
+            {% elif message.tags == "warning" %}
+            <div class="alert alert-warning">
+              <strong>{{message}}</strong>
+            </div>
+            {% elif message.tags == 'error' %}
+            <div class="alert alert-danger">
+            <strong>{{message}}</strong>
+            </div>
+            {% endif %}
             {% endfor %}
             {% endif %}
+            <script>
+            window.setTimeout(function() {
+        $(".alert").fadeTo(500, 0).slideUp(500, function(){
+            $(this).remove();
+        });
+    }, 2500);
+            </script>
             <table><br>
               {% for field in form1 %}
               <tr>

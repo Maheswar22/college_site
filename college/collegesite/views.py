@@ -26,6 +26,7 @@ def student_application(request):
             return HttpResponseRedirect(reverse('collegesite:index'))
         else:
             messages.error(request, form1.errors)
+            return render(request, 'collegesite/student_application.html', {'form1': form1})
     else:
         form1 = StudentApplicationForm()
         return render(request, 'collegesite/student_application.html', {'form1': form1})
@@ -69,7 +70,7 @@ def staff_registration(request):
             messages.success(request, "your profile has been created")
             return HttpResponseRedirect(reverse('collegesite:index'))
         else:
-            messages.error(request, (form1.errors, form2.errors))
+            messages.error(request, "{}{}".format(form1.errors,form2.errors))
     else:
         form1 = StaffuserForm()
         form2 = StaffregistrationForm()
@@ -94,9 +95,7 @@ def student_list(request):
 
 
 def user_login(request):
-
     if request.method == "POST":
-        import pdb; pdb.set_trace()
         form1 = LoginForm(request.POST)
         user = authenticate(username=request.POST['username'], password=request.POST['password'])
         if user is not None and  not user.is_staff:
@@ -107,6 +106,7 @@ def user_login(request):
             return HttpResponseRedirect(reverse('collegesite:staff_profile'))
         else:
             messages.error(request, form1.errors)
+            return render(request, 'collegesite/login.html', {'form1': form1})
     else:
         form1 = LoginForm()
         return render(request, 'collegesite/login.html', {'form1': form1})
